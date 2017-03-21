@@ -2,22 +2,25 @@ __page_size__ = 4096;
 
 MEMORY
 {
-    FLASH (rx) : ORIGIN = 0x00000000, LENGTH = 8K
-    SRAM  (rw) : ORIGIN = 0x00010000, LENGTH = 16k
+    ROM  (rx) : ORIGIN = 0x00000000, LENGTH = 4K
+    SRAM (rw) : ORIGIN = 0x00010000, LENGTH = 4k
 }
 
 ENTRY(_start)
 
 SECTIONS
 {
+    /* ROM starts here */
     . = 0K;
+
     .text : {
         __code_start__ = .;
         *.o (.vectors)
         *.o (.text)
         . = ALIGN(8);
         __code_end__ = .;
-    } > FLASH
+    } > ROM
+
 
     .rodata : {
         __rodata_start__ = .;
@@ -25,13 +28,17 @@ SECTIONS
         *.o (.rodata.*)
         . = ALIGN(8);
         __rodata_end__ = .;
-    } > FLASH
+    } > ROM
 
     /* (initialization data goes in the empty space here) */
 
+
+    /* RAM starts here */
     . = 0x00010000;
 
-    /* DATA */
+    /* DATA: this section is empty at boot and will be filled
+     * with the initial values from ROM (see above)
+     */
     .data ALIGN( __page_size__ ) : AT(__rodata_end__) SUBALIGN(4) {
         __data_start__ = .;
         *.o  (.data)
@@ -41,7 +48,7 @@ SECTIONS
 
 
     /* BSS */
-    .bss : {
+    .bss ALIGN(8) : {
         __bss_start__ = .;
         * (.bss*)
         . = ALIGN(8);
@@ -49,7 +56,11 @@ SECTIONS
     } > SRAM
 
     /* stack */
-    . = ALIGN(__page_size__);
-    __stack_start__ = .;
+    . = ALIGN(8);
+    . += 1024;
+    __initial_msp = .;
+    . += 1024;
+    __initial_psp = .;
+
 
 }

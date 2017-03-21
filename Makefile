@@ -1,36 +1,59 @@
 
+UART ?= /dev/ttyUSB1
 
 
-all: build hw sw
-	cp sw/build/sw.bin build/rom.bin
-	cp hw/build/hw.exe build/hw.exe
+all: sw hw
 
-run: all
-	cd build && ./hw.exe
-
-show: run
-	cd build && gtkwave waveform.vcd
-
-#
-
-.PHONY:	hw
+# software
 .PHONY: sw
+sw: build
+	make -C sw
+	cp sw/build/sw.bin build/rom.bin
+	cp sw/build/sw.hex build/rom.hex
 
-hw:
+	cp sw/build/sw0.bin build/rom0.bin
+	cp sw/build/sw0.hex build/rom0.hex
+
+
+# hardware
+.PHONY:	hw
+hw: build
 	make -C hw
 
-sw:
-	make -C sw
+# simulation
+sim0: sw
+	make -C hw sim0
+
+wave0: sim0
+	make -C hw wave0
+
+# post-synth simulation
+sim1: sw
+	make -C hw sim1
+
+wave1: sim1
+	make -C hw wave1
+
+# synhtesis
+synth: sw
+	make -C hw synth
+
+time: sw
+	make -C hw time
+
+program: sw
+	make -C hw program
+
+# misc
+setup:
+	make -C external setup
 
 lint:
 	make -C hw lint
 
-#
-setup:
-	sudo apt install iverilog gtkwave gcc-arm-none-eabi
-	git submodule update --init
-	CROSS_COMPILE=arm-none-eabi- git submodule foreach make
-
+console:
+	echo using UAR=$(UART), set UART to override...
+	minicom -b 115200 -D $(UART) -C minicom.log
 
 #
 
@@ -41,7 +64,9 @@ build:
 clean:
 	make -C hw clean
 	make -C sw clean
+
 	rm -rf build
 
 clean_all: clean
-	git submodule foreach make clean
+	make -C setup clean
+#	git submodule foreach make clean

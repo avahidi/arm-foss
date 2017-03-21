@@ -1,0 +1,15 @@
+
+set_io CLK_I J3
+
+set_io LED_IO[0] B5
+set_io LED_IO[1] B4
+set_io LED_IO[2] A2
+set_io LED_IO[3] A1
+set_io LED_IO[4] C5
+set_io LED_IO[5] C4
+set_io LED_IO[6] B3
+set_io LED_IO[7] C3
+
+set_io UART_RX_I B10
+set_io UART_TX_O B12
+set_io UART_RTS_N_I B13

@@ -1,3 +1,12 @@
 [submodule "external/bmlib"]
 	path = external/bmlib
 	url = https://bitbucket.org/vahidi/bmlib.git
+[submodule "external/icestorm"]
+	path = external/icestorm
+	url = https://github.com/cliffordwolf/icestorm.git
+[submodule "external/arachne-pnr"]
+	path = external/arachne-pnr
+	url = https://github.com/cseed/arachne-pnr.git
+[submodule "external/yosys"]
+	path = external/yosys
+	url = https://github.com/cliffordwolf/yosys.git

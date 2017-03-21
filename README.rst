@@ -2,39 +2,40 @@
 The M0 experiment
 =================
 
-A quick and dirty test to see if we can simulate and run ARM Cortex-M0 using
-only open source tools (iverilog, gtkwave, GCC).
+This is an experiment to see if we can design, test and deploy an
+ARM Cortex-M0 SoC on a Lattice ICE40 hx8k FPGA development board
+using only open source software:
+
+* Verilog simulation: iverilog, gtkwave
+* FPGA synthesis: arachne-pnr, icestorm, yosys
+* firmware development: GCC for ARM
+
+Note however that within the SoC, the ARM core itself is not open source, and must be licensed from ARM.
+
+Why?
+----
+
+The development tools are often a major obstacle to anyone wanting to learn FPGA or ASIC.
+Many are very very expansive and behind the reach of hobbyist
+(and many companies for that matter). And while some companies provide free
+or cheap tools for selected devices, those come often with a number of serious
+issues (e.g. artificial limitations, huge installs, aggressive DRM, non-existing
+support, very short licenses with no guarantees for future renewal and last but
+not least: software quality is sometimes jaw-dropping low).
 
 
-*Please note that you will need access to ARM IP for this experiment.*
-
-Usage
------
-
-To setup the system, copy the ARM IP to hw/src/ip/cpu/ then execute::
-
-    # this assumes you are using Ubuntu 16.04 or newer
-    make setup
+But what if you could replace all this with a few quality open source tools
+and a few "make" commands?
 
 
-To build and simulate the hw-sw combination, run::
+Who should use this?
+--------------------
 
-   make run
+Students, teachers, people interested in open source and hardware design.
 
-You should see an output like this::
+See docs/ for more information.
 
-   ...
-   CPUID 410CC200
-   THIS IS MAIN 00000399
-   Existing by user request, code = d1e00d1e
+License
+-------
 
-
-To see the simulation waveform, run::
-
-  make show
-
-
-This should load gtkwave with a short simulation
-
-.. image:: gtkwave.png
-   :align: center
+GPL version 3, see the LICENSE file for details.
