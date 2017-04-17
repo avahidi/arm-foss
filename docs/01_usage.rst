@@ -46,7 +46,7 @@ To see the waveforms, run::
 
 This should load gtkwave with a short simulation
 
-.. image:: docs/gtkwave0.png
+.. image:: gtkwave0.png
    :align: center
 
 1: post-synthesis
@@ -60,7 +60,7 @@ together by the fixture found in hw/src/sim1. To start, run::
 
 Similarly, the waveforms can be inspected using::
 
-    make wave0
+    make wave1
 
 
 Synthesis

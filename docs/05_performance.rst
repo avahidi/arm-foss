@@ -22,7 +22,7 @@ Design size
 
 Yosys resource utilization report looks like this::
 
-    make  synth
+    make synth
     ...
     === top_syn ===
 
@@ -48,13 +48,12 @@ Hence we are using 5468 of the available 7680 cells in our Hx8K FPGA. We are als
 These numbers don't seem to improve during place-and-route.
 
 
+Compare this to the `NIOS-II <https://en.wikipedia.org/wiki/Nios_II>`_ CPU by Altera (now Intel) which IIRC is 2-3 times smaller and 200-500% faster.
+One reason for this may be that the Cortex M0 was designed for ASIC and not FPGA
+(I believe ARM does have another CPU optimized for FPGA usage but I have not been able to get my hands on that one yet).
 
-Compare this to the NIOS-II CPU by Altera (now Intel) which IIRC is 2-3 times smaller and 200-500% faster.
-One reason for this may be that the Cortex M0 was designed for ASIC and not FPGA.
-I believe ARM does have another CPU optimized for FPGA usage but I have not been able to get my hands on that one yet.
 
-
-If you are interested about the subject, Altera has a great paper about CPU design for FPGA.
+If you are interested about the subject, Altera has a `great paper <http://dl.acm.org/citation.cfm?id=968291>`_ about CPU design for FPGAs.
 In particular, the chapter about ALU optimization is a must-read for anyone working
 with digital design.
 
