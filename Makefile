@@ -34,9 +34,12 @@ sim1: sw
 wave1: sim1
 	make -C hw wave1
 
-# synhtesis
+# synhtesis, par, timing, bitstream programming
 synth: sw
 	make -C hw synth
+
+par: sw
+	make -C hw par
 
 time: sw
 	make -C hw time

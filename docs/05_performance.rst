@@ -44,18 +44,12 @@ Yosys resource utilization report looks like this::
        SB_LUT4                      4272
        SB_RAM40_4K                    16
 
-Hence we are using 5468 of the available 7680 cells in our Hx8K FPGA. We are also using 16 of the 32 available memory blocks.
-These numbers don't seem to improve during place-and-route.
+We are using about 70% of the cells and 50% of the memories. The cells are mainly occupied by the ARM CPU, the second biggest component is the uart with 85 cells.
 
-
-Compare this to the `NIOS-II <https://en.wikipedia.org/wiki/Nios_II>`_ CPU by Altera (now Intel) which IIRC is 2-3 times smaller and 200-500% faster.
-One reason for this may be that the Cortex M0 was designed for ASIC and not FPGA
-(I believe ARM does have another CPU optimized for FPGA usage but I have not been able to get my hands on that one yet).
-
-
-If you are interested about the subject, Altera has a `great paper <http://dl.acm.org/citation.cfm?id=968291>`_ about CPU design for FPGAs.
-In particular, the chapter about ALU optimization is a must-read for anyone working
-with digital design.
+Compared to other soft-cores such as Altera NIOS-II and Lattice Mico32 this CPU is just too big.
+However, a reason for this may be that Cortex-M0 was (unlike the Cortex-M1) designed for ASIC and not FPGA.
+If you are interested about FPGA optimization, Altera (now Intel) has a `great paper <http://dl.acm.org/citation.cfm?id=968291>`_
+about ALU design for FPGAs. I consider it a must-read for anyone working with digital design.
 
 
 Max frequency

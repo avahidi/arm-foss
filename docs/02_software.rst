@@ -1,7 +1,15 @@
 Software
 ========
 
-The ARM code is in the sw/ folder.
+The ARM code is in the sw/ folder. This code demonstrates a number of things:
+
+* bare metal development using GCC
+* Cortex-M initialization without using any assembler code
+* use of printf() from *bmlib*, connected to the USB-UART
+* use of SysTick and NVIC to generate periodic interrupts
+
+The periodic timer is used to turn on the LEDs on the board.
+
 
 Compiler requirements
 ---------------------
@@ -44,6 +52,6 @@ These files will be used to populate the SoC ROM during simulation and synthesis
 See the code
 ~~~~~~~~~~~~
 
-To watch the generated code, run::
+To browse the generated code, run::
 
    make -C sw show

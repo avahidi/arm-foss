@@ -80,7 +80,7 @@ wave1: sim1
 # synthesis
 #
 synth: build/$(NAME).blif
-# pnr: build/$(NAME).asc
+par: build/$(NAME).asc
 # image: build/$(NAME).bin
 
 program: build/$(NAME).bin
