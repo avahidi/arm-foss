@@ -1,5 +1,4 @@
-
-`default_nettype none
+`include "defs.vh"
 
 /* Reset generator */
 

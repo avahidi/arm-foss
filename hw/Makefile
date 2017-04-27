@@ -31,7 +31,7 @@ PCF ?= src/synth/hx8k.pcf
 DTOP ?= top_syn
 
 # tools
-IVERILOG = iverilog -Wall -g2001
+IVERILOG = iverilog -Wall -g2001 -Iinclude
 SYNTH = yosys -Q -l build/$(NAME).synth.log -v 1
 PNR = arachne-pnr -q -d 8k -P ct256
 
@@ -40,7 +40,7 @@ ROM = $(BASE)/build/rom.hex
 
 
 # misc
-LINT = verilator -Wall --lint-only --bbox-sys --bbox-unsup -Wno-STMTDLY
+LINT = verilator -Wall --lint-only --bbox-sys --bbox-unsup -Wno-STMTDLY -Iinclude
 
 #
 all: build $(EXE0)
@@ -51,7 +51,7 @@ all: build $(EXE0)
 $(EXE0): build $(ROM)
 
 $(EXE0): $(S0SRC)
-	$(IVERILOG) -s $(S0TOP) $(S0SRC) -o $@
+	$(IVERILOG)  -s $(S0TOP) $(S0SRC) -o $@
 
 build/waveform0.vcd: $(EXE0)
 	$(EXE0) -h
@@ -66,7 +66,7 @@ wave0: build/waveform0.vcd
 #
 hw/build/$(NAME).v: build/$(NAME).blif
 $(EXE1): $(S1SRC)
-	$(IVERILOG) -s $(S1TOP) $(S1SRC) -o $@
+	$(IVERILOG) $(S1TOP) $(S1SRC) -o $@
 
 build/waveform1.vcd: $(EXE1)
 	$(EXE1)
@@ -91,7 +91,7 @@ time: build/$(NAME).asc
 
 build/$(NAME).blif: Makefile $(ROM) build
 build/$(NAME).blif: $(DSRC)
-	$(SYNTH) -p 'synth_ice40 -top $(DTOP) -retime -blif build/$(NAME).blif' $(DSRC) -o build/$(NAME).v
+	$(SYNTH)  -p 'read_verilog -Iinclude $(DSRC)' -p 'synth_ice40 -top $(DTOP) -retime -blif build/$(NAME).blif' -o build/$(NAME).v
 	-grep  -i -A 40 "Printing statistics" build/$(NAME).synth.log
 
 build/$(NAME).asc: build/$(NAME).blif $(PCF)

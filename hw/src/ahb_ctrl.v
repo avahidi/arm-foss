@@ -1,3 +1,4 @@
+`include "defs.vh"
 
 module ahb_ctrl
   (

@@ -13,3 +13,4 @@ set_io LED_IO[7] C3
 set_io UART_RX_I B10
 set_io UART_TX_O B12
 set_io UART_RTS_N_I B13
+set_io UART_CTS_N_O A15

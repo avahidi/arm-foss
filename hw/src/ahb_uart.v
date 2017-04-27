@@ -1,5 +1,4 @@
-
-`default_nettype none
+`include "defs.vh"
 
 /*
  * AHB wrapper for our UART that also implements interrupts
@@ -97,7 +96,7 @@ module ahb_uart
      if(enable & !HWRITE_I) begin
        case(adr)
          REG_DATA: HWDATA_O <= { 24'd0, saved_rx_data };
-         REG_STATUS: HWDATA_O <= { 29'd0,  uart_tx_busy,
+         REG_STATUS: HWDATA_O <= { 29'd0,  ~uart_tx_busy,
                                    status_rx_valid, status_rx_error };
          REG_CTRL : HWDATA_O <= { 29'd0, ctrl_irq_tx, ctrl_irq_rx, ctrl_irq_error};
          REG_CLOCK: HWDATA_O <= { 21'd0, uart_add };
@@ -140,17 +139,17 @@ module ahb_uart
            end
 
            REG_CLOCK:
-             uart_add = HRDATA_I[10:0];
+             uart_add <= HRDATA_I[10:0];
 
            REG_STATUS: begin
-             status_rx_error = status_rx_error & ~HRDATA_I[0];
+             status_rx_error <= status_rx_error & ~HRDATA_I[0];
            end
          endcase
        end
 
        // read flag updates
        if(enable & !HWRITE_I) begin
-         case(adr_d)
+         case(adr)
            REG_DATA:
              status_rx_valid <= 0;
          endcase

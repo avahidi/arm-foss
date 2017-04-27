@@ -60,14 +60,6 @@ struct cpu_systick {
 extern void cpu_systick_handler();
 
 /* UART */
-#define UART_CTRL_IRQ_ERROR _BV(0)
-#define UART_CTRL_IRQ_RX _BV(1)
-#define UART_CTRL_IRQ_TX _BV(2)
-
-#define UART_STATUS_RX_ERROR _BV(0)
-#define UART_STATUS_RX_READY _BV(1)
-#define UART_STATUS_TX_BUSY  _BV(2)
-
 struct soc_uart {
     uint32_t data;
     uint32_t ctrl;
@@ -76,9 +68,6 @@ struct soc_uart {
 };
 
 #define _uart ((volatile struct soc_uart *) SOC_UART_BASE)
-
-extern int soc_uart_putchar(int c);
-extern void soc_uart_handler();
 
 /* GPIO */
 
@@ -98,8 +87,7 @@ struct soc_ctrl {
 };
 
 #define _ctrl ((volatile struct soc_ctrl *)SOC_CTRL_BASE)
-
-extern int soc_ctrl_putchar(int c);
+extern void soc_ctrl_putchar(int c);
 
 
 /* init */

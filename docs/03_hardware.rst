@@ -72,14 +72,47 @@ Note that the 0xE000_Exxx is not here since it is handled internally
 inside the CPU.
 
 
-The CTRL peripheral
--------------------
+Peripherals
+-----------
+
+
+CTRL
+~~~~
 
 The CTRL is a dummy peripheral to simplify simulation.
 It provides the following register:
 
-* 0x0000: r/o, reads 1 if this is a simulation
-* 0x0004: w/o, write to stdout
-* 0x0008: w/o, write to kill simulation
+* 0x000: r/o, reads 1 if this is a simulation
+* 0x004: w/o, (simulation only) write to stdout
+* 0x008: w/o, (simulation only) write to kill simulation
 
 Only the first one is available in real hardware.
+
+UART
+~~~~
+
+UART is a minimal serial interface with interrupt capabilities.
+It provides the following register:
+
+* 0x000: r/w, DATA register
+  * read [7:0] to get received data. Read removes RX interrupt
+  * write [7:0] to send data (STATUS[2] must be 0))
+* 0x004: r/w, CONTROL register
+  * [0] r/w, interrupt on RX error
+  * [1] r/w, interrupt on RX ready
+  * [2] r/w, interrupt on TX ready
+* 0x008: r/w, STATUS register
+  * [0] r/w, RX error (write 1 to clear)
+  * [1] r/o, RX is ready (data received)
+  * [2] r/o, TX is ready (can send)
+* 0x00c: r/w, CLOCK
+  * [11:0] r/w, set to baud rate * 16 * 2^12 / AHB clock (12 MHz)
+
+GPIO
+~~~~
+
+GPIO allows the CPU access to the 8 pins connected to Leds D2-D9.
+It provides the following register:
+
+* 0x000: r/w: DATA register. bits [7:0] are data bits
+* 0x004: r/w: DIR register. bits [7:0] are port direction (1 means output)

@@ -9,6 +9,12 @@
 /*****************************************
  * cpu Ctrl
  *****************************************/
+
+uint32_t cpu_scb_cpuid()
+{
+    return _scb->cpuid;
+}
+
 void cpu_scb_init()
 {
 }
@@ -110,9 +116,6 @@ void cpu_systick_init()
          break;
      case 1:
          cpu_systick_init();
-         break;
-     case 2:
-         printf("CPUID %x\n", _scb->cpuid);
          break;
      }
 }

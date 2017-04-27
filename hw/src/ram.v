@@ -1,4 +1,4 @@
-`default_nettype none
+`include "defs.vh"
 
 // 32-bit, 2^AWIDTH deep RAM, with byte-wise write enable
 module ram #(parameter AWIDTH = 8)

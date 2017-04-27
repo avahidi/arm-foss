@@ -1,10 +1,8 @@
-
-`timescale 1ns/1ps
+`include "defs.vh"
+`include "sim0.vh"
 
 module top_tb();
-
-   localparam FREQ = 12; // in MHZ
-
+   localparam FREQ = 12000000;
 
    reg tb_clk, tb_rst;
    wire uart_rx, uart_tx;
@@ -30,8 +28,8 @@ module top_tb();
       );
 
 
-   // uart listener:
-   listen_uart listen_uart0
+   // uart stim
+   stim_uart stim_uart0
      (
       .CLK_I(tb_clk),
       .RST_I(tb_rst),
@@ -58,7 +56,7 @@ module top_tb();
      #100 tb_rst = 0;
 
      forever
-       tb_clk = #(1000 / (FREQ * 2)) !tb_clk;
+       tb_clk = #(1000000000 / (FREQ * 2)) !tb_clk;
    end
 
 
@@ -68,7 +66,7 @@ module top_tb();
      $dumpvars;
 
      // this will stop simulation at some point
-     #800000 $finish(0);
+     #2000000 $finish(0);
    end
 
    // kill simulation when CPU dies

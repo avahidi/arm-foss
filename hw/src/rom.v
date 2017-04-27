@@ -1,4 +1,4 @@
-`default_nettype none
+`include "defs.vh"
 
 // 32 x 2^AWIDTH ROM.
 // Memory contents is read from firmware hex file both during simulation

@@ -1,5 +1,4 @@
-
-`default_nettype none
+`include "defs.vh"
 
 module top
   (
@@ -69,15 +68,15 @@ module top
    // bus address encoder
    reg [2:0]   adrsel;
    always @(*) begin
-     casex(cpu_adr_o[31:12])
-       20'h0000X: adrsel <= 3'd1; // ROM
-       20'h0001X: adrsel <= 3'd2; // RAM
-       20'ha0000: adrsel <= 3'd3; // UART
-       20'ha0001: adrsel <= 3'd4; // ctrl
-       20'ha0002: adrsel <= 3'd5; // gpio
-       20'ha0003: adrsel <= 3'd6; // ???
-       20'ha0004: adrsel <= 3'd7; // ???
-       default: adrsel <= 3'd0;
+     casez(cpu_adr_o[31:12])
+       20'h0000?: adrsel = 3'd1; // ROM
+       20'h0001?: adrsel = 3'd2; // RAM
+       20'ha0000: adrsel = 3'd3; // UART
+       20'ha0001: adrsel = 3'd4; // ctrl
+       20'ha0002: adrsel = 3'd5; // gpio
+       20'ha0003: adrsel = 3'd6; // ???
+       20'ha0004: adrsel = 3'd7; // ???
+       default: adrsel = 3'd0;
      endcase
    end
 

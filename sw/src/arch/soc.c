@@ -13,27 +13,54 @@ static bool putchar_sim = true;
 
 int putchar(int c)
 {
-    return putchar_sim ? soc_ctrl_putchar(c) : soc_uart_putchar(c);
+    putchar_sim ? soc_ctrl_putchar(c) : soc_uart_write(c);
+    return c;
 }
 
 /*****************************************
  * uart
  *****************************************/
 
-void soc_uart_handler()
+__weak void soc_uart_handler()
 {
-    /* for now, just disable the irq causes */
-    uint32_t status = _uart->status;
-    _uart->ctrl &= ~(UART_CTRL_IRQ_ERROR | UART_CTRL_IRQ_RX | UART_CTRL_IRQ_TX);
+    /* deault dummy handler: just disable uart interruts */
+    soc_uart_irq_enable(0);
 }
 
-int soc_uart_putchar(int c)
+void soc_uart_write(int c)
 {
-    while(_uart->status & UART_STATUS_TX_BUSY)
+    while(!(_uart->status & UART_TX_READY))
         /* wait for uart to accept data */;
 
     _uart->data = c;
-    return c;
+}
+
+bool soc_uart_read(int *c)
+{
+    if(_uart->status & UART_RX_READY) {
+        *c = _uart->data;
+        return true;
+    }
+    return false;
+}
+
+void soc_uart_irq_ack(int signals)
+{
+    if(signals & UART_ERROR_RX)
+        _uart->status |= UART_ERROR_RX;
+}
+
+void soc_uart_irq_enable(int signals)
+{
+    uint32_t ctrl = _uart->ctrl;
+    ctrl = (ctrl & ~7) | (signals & 7);
+    _uart->ctrl = ctrl;
+
+}
+
+int soc_uart_irq_read()
+{
+    return 7 & _uart->status & _uart->ctrl;
 }
 
 static void soc_uart_init()
@@ -85,10 +112,9 @@ void soc_ctrl_die()
     _ctrl->die = 0xd1e00d1e;
 }
 
-int soc_ctrl_putchar(int c)
+void soc_ctrl_putchar(int c)
 {
     _ctrl->putchar = c;
-    return c;
 }
 
 static void soc_ctrl_init()

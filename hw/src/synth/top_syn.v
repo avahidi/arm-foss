@@ -1,5 +1,4 @@
-`default_nettype none
-
+`include "defs.vh"
 
 module top_syn
   (
@@ -7,10 +6,16 @@ module top_syn
    // inout [7:0] LED_IO,
    output [7:0] LED_IO,
 
+
    input        UART_RTS_N_I, // 0 when uart is connected
    input        UART_RX_I,
-   output       UART_TX_O
+   output       UART_TX_O,
+   output       UART_CTS_N_O
    );
+
+
+   // UART: clear to send
+   assign UART_CTS_N_O = 0;
 
 
    // output drivers
@@ -32,6 +37,7 @@ module top_syn
     */
 
    assign LED_IO = dir & data_out;
+
 
    top top0
      (

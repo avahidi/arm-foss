@@ -1,3 +1,4 @@
+`include "defs.vh"
 
 /*
  * minimal AHB lite mux.  M_SEL_I=000 means not resolved.

@@ -25,6 +25,9 @@ enum irq_numbers {
     IRQ_UART = 0
 };
 
+/* SCB */
+extern uint32_t cpu_scb_cpuid();
+
 /* SYSTICK */
 extern void cpu_systick_start(bool start);
 extern void cpu_systick_value(uint32_t val);
@@ -39,6 +42,19 @@ extern void cpu_nvic_irq_priority(int irq, uint8_t prio);
 
 /* ctrl */
 extern void soc_ctrl_die();
+
+/* UART */
+enum  {
+    UART_ERROR_RX = 1,
+    UART_RX_READY = 2,
+    UART_TX_READY = 4
+};
+extern void soc_uart_irq_ack(int signals);
+extern void soc_uart_irq_enable(int signals);
+extern int soc_uart_irq_read();
+extern void soc_uart_write(int c);
+extern bool soc_uart_read(int *c);
+extern void soc_uart_handler();
 
 /* gpio */
 extern void gpio_dir_set(uint32_t dir);

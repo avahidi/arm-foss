@@ -1,14 +1,17 @@
 Software
 ========
 
-The ARM code is in the sw/ folder. This code demonstrates a number of things:
+Software for the ARM core is found in the sw/ folder.
+In its current form all this code does is to toggle the LEDs at a speed you set from the console (press 0 to 9).
+
+This is used to demonstrate number of things:
 
 * bare metal development using GCC
-* Cortex-M initialization without using any assembler code
+* Cortex-M initialization without using any libraries or assembler
 * use of printf() from *bmlib*, connected to the USB-UART
-* use of SysTick and NVIC to generate periodic interrupts
-
-The periodic timer is used to turn on the LEDs on the board.
+* Use of NVIC for interrupt management
+  * use of SysTick to generate periodic interrupts
+  * use of UART interrupts to read user input
 
 
 Compiler requirements

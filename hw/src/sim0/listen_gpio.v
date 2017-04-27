@@ -1,4 +1,5 @@
-`timescale 1ns/1ps
+`include "defs.vh"
+`include "sim0.vh"
 
 module listen_gpio
   (

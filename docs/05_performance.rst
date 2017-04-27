@@ -46,10 +46,15 @@ Yosys resource utilization report looks like this::
 
 We are using about 70% of the cells and 50% of the memories. The cells are mainly occupied by the ARM CPU, the second biggest component is the uart with 85 cells.
 
-Compared to other soft-cores such as Altera NIOS-II and Lattice Mico32 this CPU is just too big.
-However, a reason for this may be that Cortex-M0 was (unlike the Cortex-M1) designed for ASIC and not FPGA.
-If you are interested about FPGA optimization, Altera (now Intel) has a `great paper <http://dl.acm.org/citation.cfm?id=968291>`_
-about ALU design for FPGAs. I consider it a must-read for anyone working with digital design.
+
+.. image:: floorplan.png
+   :align: center
+
+
+Compared to other soft-cores such as Altera NIOS-II and Lattice Mico32 this (admittedly more capable) Cortex-M0 is just too big.
+One reason for this could be that this cpu was (unlike the Cortex-M1) designed for ASIC and not FPGA.
+Optimizing for FPGA can have a huge impact, see for example this great `paper <http://dl.acm.org/citation.cfm?id=968291>`_ from Altera (now Intel).
+
 
 
 Max frequency

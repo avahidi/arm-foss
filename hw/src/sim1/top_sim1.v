@@ -1,7 +1,5 @@
-
-
-`default_nettype none
-`timescale 1ns/1ps
+`include "defs.vh"
+`include "sim1.vh"
 
 module top_sim1();
 

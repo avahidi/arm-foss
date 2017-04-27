@@ -7,6 +7,7 @@ ARM Cortex-M0 SoC on a Lattice ICE40 hx8k FPGA development board
 using only open source software:
 
 * Verilog simulation: iverilog, gtkwave
+* Verilog lint: verilator
 * FPGA synthesis: arachne-pnr, icestorm, yosys
 * firmware development: GCC for ARM
 

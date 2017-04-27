@@ -53,7 +53,7 @@ This should load gtkwave with a short simulation
 ~~~~~~~~~~~~~~~~~
 
 Post-synthesis simulation uses hw/build/m0.v (generated after synthesis)
-together by the fixture found in hw/src/sim1. To start, run::
+together with the fixture found in hw/src/sim1. To start, run::
 
     # post-synthesis simulation
     make sim1
@@ -64,7 +64,7 @@ Similarly, the waveforms can be inspected using::
 
 
 Synthesis
-~~~~~~~~~
+---------
 
 To synthesize the design, run::
 
@@ -86,3 +86,11 @@ Note that once programmed the device will be in reset state until you connect
 to its serial interface. Simply run::
 
    make console
+
+
+misc
+----
+
+For verilog linter, run::
+
+    make lint

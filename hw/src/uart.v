@@ -1,4 +1,4 @@
-`default_nettype none
+`include "defs.vh"
 
 /*
  * This is a relatively small UART implementation that is also
@@ -35,7 +35,7 @@ module uart
      if(!RESET_N_I) begin
        acc1 <= 0;
      end else begin
-       acc1 <= acc1[11:0] + ADD_I;
+       acc1 <= acc1[11:0] + {1'b0, ADD_I};
      end
 
    // 1x tick for TX, starts with tx_working
@@ -56,7 +56,7 @@ module uart
    always @(posedge CLK_I) begin
      rx_tick <= tick16 & ~|acc3;
      if(tick16) begin
-       if(rx_state) begin
+       if(rx_state != 0) begin
          acc3 <= acc3 + 1;
        end else
          acc3 <= 9;
@@ -77,8 +77,7 @@ module uart
 
    always @(posedge CLK_I)
      if(!RESET_N_I) begin
-       // these initial values forces TX to wait a while before accepting input
-       tx_working <= 1;
+       tx_working <= 0;
        tx_cnt <= 0;
        tx_data <= -1;
      end else begin
@@ -113,10 +112,10 @@ module uart
      if(!RESET_N_I)
        rx <= 1;
      else begin
-       case(rxs[2:0])
-         3'b000: rx <= 0;
-         3'b111: rx <= 1;
-       endcase
+       if(rxs[2:0] == 3'b000)
+         rx <= 0;
+       else if(rxs[2:0] == 3'b111)
+         rx <= 1;
      end
    end
 
