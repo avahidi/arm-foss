@@ -117,5 +117,9 @@ void cpu_systick_init()
      case 1:
          cpu_systick_init();
          break;
+     case 2:
+         /* enable interrupts at this point */
+         cpu_nvic_enable(true);
+         break;
      }
 }

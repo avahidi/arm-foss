@@ -71,36 +71,36 @@ static void soc_uart_init()
     _uart->ctrl = 0; /* no irq reasons */
 
     cpu_nvic_irq_priority(IRQ_UART, 0x80);
-    cpu_nvic_irq_enable(IRQ_UART, false);
+    cpu_nvic_irq_enable(IRQ_UART, true);
 }
 
 /*****************************************
  * GPIO
  *****************************************/
 
-void gpio_dir_set(uint32_t dir)
+void soc_gpio_dir_set(uint32_t dir)
 {
     _gpio->dir = dir;
 }
 
-void gpio_data_set(uint32_t data)
+void soc_gpio_data_set(uint32_t data)
 {
     _gpio->data = data;
 }
 
-uint32_t gpio_dir_get()
+uint32_t soc_gpio_dir_get()
 {
     return _gpio->dir;
 }
 
-uint32_t gpio_data_get()
+uint32_t soc_gpio_data_get()
 {
     return _gpio->data;
 }
 
 static void soc_gpio_init()
 {
-    gpio_dir_set(0);
+    soc_gpio_dir_set(0);
 }
 
 /*****************************************
@@ -133,10 +133,6 @@ void soc_init(int pass)
         soc_ctrl_init();
         soc_uart_init();
         soc_gpio_init();
-        break;
-    case 1:
-        /* enable interrupts at this point */
-        cpu_nvic_enable(true);
         break;
     }
 }

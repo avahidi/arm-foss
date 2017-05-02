@@ -2,6 +2,13 @@
 The M0 experiment
 =================
 
+
+
+.. image:: docs/gtkwave0.png
+   :align: center
+
+
+
 This is an experiment to see if we can design, test and deploy an
 ARM Cortex-M0 SoC on a Lattice ICE40 hx8k FPGA development board
 using only open source software:
@@ -27,6 +34,16 @@ not least: software quality is sometimes jaw-dropping low).
 
 But what if you could replace all this with a few quality open source tools
 and a few "make" commands?
+
+
+Why not?
+--------
+
+These tools currently lack basic functions such as timing constraints.
+If your projects need better control over the process you may need other tools.
+
+
+In addition, only Lattice iCE40 is fully supported.
 
 
 Who should use this?

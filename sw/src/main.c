@@ -9,7 +9,7 @@ static uint32_t gpio_val = 0;
 void cpu_systick_handler()
 {
     gpio_val += gpio_add;
-    gpio_data_set(gpio_val >> 8);
+    soc_gpio_data_set(gpio_val >> 8);
     cpu_systick_ack();
 }
 
@@ -41,10 +41,9 @@ int main()
 {
     /* uart RX intterrupts */
     soc_uart_irq_enable(UART_RX_READY);
-    cpu_nvic_irq_enable(IRQ_UART, true);
 
     /* GPIO blinker */
-    gpio_dir_set(0xFF);
+    soc_gpio_dir_set(0xFF);
     cpu_systick_start(true);
     cpu_systick_value(1UL << 16);
 

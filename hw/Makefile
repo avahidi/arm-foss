@@ -66,7 +66,7 @@ wave0: build/waveform0.vcd
 #
 hw/build/$(NAME).v: build/$(NAME).blif
 $(EXE1): $(S1SRC)
-	$(IVERILOG) $(S1TOP) $(S1SRC) -o $@
+	$(IVERILOG) -s $(S1TOP) $(S1SRC) -o $@
 
 build/waveform1.vcd: $(EXE1)
 	$(EXE1)

@@ -57,11 +57,11 @@ extern bool soc_uart_read(int *c);
 extern void soc_uart_handler();
 
 /* gpio */
-extern void gpio_dir_set(uint32_t dir);
-extern void gpio_data_set(uint32_t data);
+extern void soc_gpio_dir_set(uint32_t dir);
+extern void soc_gpio_data_set(uint32_t data);
 
-extern uint32_t gpio_dir_get();
-extern uint32_t gpio_data_get();
+extern uint32_t soc_gpio_dir_get();
+extern uint32_t soc_gpio_data_get();
 
 
 #endif /* !_ARCH_H_ */
