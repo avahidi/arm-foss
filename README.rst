@@ -3,17 +3,17 @@ The ARM FOSS experiment
 ========================
 
 
-This is an experiment to see if we can design, test and deploy an ARM Cortex-M0 SoC 
+This is an experiment to see if we can design, test and deploy an `ARM Cortex-M0 <https://en.wikipedia.org/wiki/ARM_Cortex-M#Cortex-M0>`_ SoC 
 on a FPGA development board using only open source software:
 
-* Verilog simulation: iverilog, gtkwave
-* Verilog lint: verilator
-* FPGA synthesis: arachne-pnr, icestorm, yosys
-* firmware development: GCC for ARM
-* Ubuntu 16.04
+* Verilog simulation: `iverilog <https://en.wikipedia.org/wiki/Icarus_Verilog>`_, `gtkwave <http://gtkwave.sourceforge.net/>`_
+* Verilog lint: `verilator <https://en.wikipedia.org/wiki/Verilator>`_
+* FPGA synthesis: `arachne-pnr <https://github.com/cseed/arachne-pnr>`_, `icestorm <https://github.com/cliffordwolf/icestorm>`_, `yosys <https://github.com/cliffordwolf/yosys>`_
+* firmware development: `GCC <https://en.wikipedia.org/wiki/GNU_Compiler_Collection>`_ for ARM
+* `Ubuntu <https://en.wikipedia.org/wiki/Ubuntu_(operating_system)>`_ 16.04
 
 Note however that within the SoC, the ARM core itself is not open source, and must be licensed from ARM.
-Furthermore, we can currently only target the Lattice ICE40 hx8k.
+Furthermore, we can currently only target the `Lattice ICE40 <https://en.wikipedia.org/wiki/ICE_(FPGA)#Open_source>`_ hx8k.
 
 
 
@@ -76,25 +76,25 @@ Usage
 2. copy the ARM IP to hw/src/cpu/  (available via the ARM University Program)
 3. Then execute::
 
-    make setup # download, build and install required tools
+    make setup     # download, build and install required tools
 
 4. Run linter and perform post-synthesis simulation::
     
-    make lint  # run verilator linter
-    make sim0  # post-synthesis simulation
-    make wave0 # see simulation result
+    make lint      # run verilator linter
+    make sim0      # post-synthesis simulation
+    make wave0     # see simulation result
 
 5. Once you are happy with your design, you can perform the remaining steps::
 
-    make synth # synthesis
-    make sim1  # post-synthesis simulation
-    make wave1 # see simulation result
+    make synth     # synthesis
+    make sim1      # post-synthesis simulation
+    make wave1     # see simulation result
 
 6. Going from source code to bitstream and then programming the board involves these steps::
 
-    make synth   # synthesis
-    make par     # place and route
-    make program # generate bitstream and flash the board
+    make synth     # synthesis
+    make par       # place and route
+    make program   # generate bitstream and flash the board
 
 7. If you need to talk to the board UART::
 
@@ -209,7 +209,7 @@ This is used to demonstrate number of things:
 
 * bare metal development using GCC
 * Cortex-M initialization without using any standard libraries or assembler
-* use of printf() from *bmlib*, connected to the USB-UART
+* use of printf() from `bmlib <https://bitbucket.org/vahidi/bmlib>`_ , connected to the USB-UART
 * Use of NVIC for interrupt management
 
   * use of SysTick to generate periodic interrupts
@@ -217,7 +217,7 @@ This is used to demonstrate number of things:
 
 
 The code uses a number of GGC-specific tricks to make things simpler.
-For example, the exception vector can be written in C instead of assembler thanks to GCC extensions::
+For example, the exception vector can be written in C instead of assembler thanks to `GCC extensions <https://gcc.gnu.org/onlinedocs/gcc/C-Extensions.html>`_ ::
 
     uint32_t vectors[32] __attribute__((section(".vectors"))) =
     {
