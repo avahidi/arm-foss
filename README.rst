@@ -72,7 +72,7 @@ software
 Usage
 =====
 
-1. Make sure you are using Ubuntu 16.04 or newer
+1. Make sure you are using Ubuntu 18.04 or newer
 2. copy the ARM IP to hw/src/cpu/  (available via the ARM University Program)
 3. Then execute::
 
