@@ -3,16 +3,16 @@ The ARM FOSS experiment
 ========================
 
 
-This is an experiment to see if we can design, test and deploy an `ARM Cortex-M0 <https://en.wikipedia.org/wiki/ARM_Cortex-M#Cortex-M0>`_ SoC 
+This is an experiment to see if we can design, test and deploy an `ARM Cortex-M0 <https://en.wikipedia.org/wiki/ARM_Cortex-M#Cortex-M0>`_ SoC
 on a FPGA development board using only open source software:
 
 * Verilog simulation: `iverilog <https://en.wikipedia.org/wiki/Icarus_Verilog>`_, `gtkwave <http://gtkwave.sourceforge.net/>`_
 * Verilog lint: `verilator <https://en.wikipedia.org/wiki/Verilator>`_
-* FPGA synthesis: `arachne-pnr <https://github.com/cseed/arachne-pnr>`_, `icestorm <https://github.com/cliffordwolf/icestorm>`_, `yosys <https://github.com/cliffordwolf/yosys>`_
+* FPGA synthesis: `icestorm <https://github.com/cliffordwolf/icestorm>`_, `yosys <https://github.com/cliffordwolf/yosys.git>`_, `nextpnr <https://github.com/YosysHQ/nextpnr>`_
 * firmware development: `GCC <https://en.wikipedia.org/wiki/GNU_Compiler_Collection>`_ for ARM
-* `Ubuntu <https://en.wikipedia.org/wiki/Ubuntu_(operating_system)>`_ 16.04
+* `Ubuntu <https://en.wikipedia.org/wiki/Ubuntu_(operating_system)>`_ 18.04
 
-Note however that within the SoC, the ARM core itself is not open source, and must be licensed from ARM.
+Note however that within the SoC, the ARM core itself must be licensed from `ARM <https://www.arm.com/resources/designstart/designstart-university>`_.
 Furthermore, we can currently only target the `Lattice ICE40 <https://en.wikipedia.org/wiki/ICE_(FPGA)#Open_source>`_ hx8k.
 
 
@@ -60,7 +60,7 @@ hardware
 
 * change SoC flip-flops to use an asynchronous reset like the ARM cpu
 * add a PLL to increase CPU frequency
-* add an APB bus and move the slower peripherals to the bus to speed up the main AHB bus
+* add an APB bus for slower peripherals in order to speed up the main AHB bus
 * rewrite the ROM to accept code from the UART during start
 * add interrupts to the GPIO port
 
@@ -78,13 +78,13 @@ Usage
 
     make setup     # download, build and install required tools
 
-4. Run linter and perform post-synthesis simulation::
-    
+4. Run linter and perform pre-synthesis simulation::
+
     make lint      # run verilator linter
-    make sim0      # post-synthesis simulation
+    make sim0      # pre-synthesis simulation
     make wave0     # see simulation result
 
-5. Once you are happy with your design, you can perform the remaining steps::
+5. Once your design works as intended, you can perform RTL synthesis and repeat the simulation on that::
 
     make synth     # synthesis
     make sim1      # post-synthesis simulation
@@ -96,7 +96,7 @@ Usage
     make par       # place and route
     make program   # generate bitstream and flash the board
 
-7. If you need to talk to the board UART::
+7. Once the board is programmed, you can talk to it via UART::
 
     make console
 
@@ -202,7 +202,7 @@ It provides the following register:
 Software
 ========
 
-The software for the ARM core is found in the sw folder. 
+The software for the ARM core is found in the sw folder.
 In its current form all this code does is to toggle the LEDs at a speed you set from the console (press 0 to 9).
 
 This is used to demonstrate number of things:
@@ -291,15 +291,12 @@ The current tools shows you approximate design size and frequency::
     Total path delay: 48.87 ns (20.46 MHz)
 
 
-Hence we we are using about 70% of the cells and 50% of the memories and have a maximum frequency of about 20MHz. 
+Hence we we are using about 70% of the cells and 50% of the memories and have a maximum frequency of about 20MHz.
 These are not particularly good numbers, mainly because the Cortex-M0 (unlike Cortex-M1) was not `designed for FPGA <http://dl.acm.org/citation.cfm?id=968291>`_.
-Unfortunately, to best of my knowledge, we currently don't have the right tools to improve either of these. 
+Unfortunately, we currently don't have the right tools to improve either of these (although the nextpnr project aims to address this)
 
 
 License
 =======
 
 This project is released under the GPL version 3, see the LICENSE file for details.
-
-
-

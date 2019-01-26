@@ -19,10 +19,6 @@ S1SRC += $(BASE)/external/yosys/techlibs/ice40/cells_sim.v
 S1TOP = top_sim1
 EXE1 = build/sim1.exe
 
-
-
-
-
 # synthesis
 DDIR += src/synth
 DSRC = $(foreach dir,$(DIR) $(DDIR), $(wildcard $(dir)/*.v) )
@@ -33,7 +29,7 @@ DTOP ?= top_syn
 # tools
 IVERILOG = iverilog -Wall -g2001 -Iinclude
 SYNTH = yosys -Q -l build/$(NAME).synth.log -v 1
-PNR = arachne-pnr -q -d 8k -P ct256
+PNR=nextpnr-ice40
 
 # firmware dependencies
 ROM = $(BASE)/build/rom.hex
@@ -64,7 +60,7 @@ wave0: build/waveform0.vcd
 #
 # post-synth simulation
 #
-hw/build/$(NAME).v: build/$(NAME).blif
+hw/build/$(NAME).v: build/$(NAME).json
 $(EXE1): $(S1SRC)
 	$(IVERILOG) -s $(S1TOP) $(S1SRC) -o $@
 
@@ -79,7 +75,7 @@ wave1: sim1
 #
 # synthesis
 #
-synth: build/$(NAME).blif
+synth: build/$(NAME).json
 par: build/$(NAME).asc
 # image: build/$(NAME).bin
 
@@ -89,13 +85,14 @@ program: build/$(NAME).bin
 time: build/$(NAME).asc
 	icetime -tmd hx8k build/$(NAME).asc
 
-build/$(NAME).blif: Makefile $(ROM) build
-build/$(NAME).blif: $(DSRC)
-	$(SYNTH)  -p 'read_verilog -Iinclude $(DSRC)' -p 'synth_ice40 -top $(DTOP) -retime -blif build/$(NAME).blif' -o build/$(NAME).v
+build/$(NAME).json: Makefile $(ROM) build
+build/$(NAME).json: $(DSRC)
+	$(SYNTH)  -p 'read_verilog -Iinclude $(DSRC)' -p 'synth_ice40 -top $(DTOP) -retime -json build/$(NAME).json' -o build/$(NAME).v
 	-grep  -i -A 40 "Printing statistics" build/$(NAME).synth.log
 
-build/$(NAME).asc: build/$(NAME).blif $(PCF)
-	$(PNR) -o build/$(NAME).asc -p $(PCF) build/$(NAME).blif
+build/$(NAME).asc: build/$(NAME).json $(PCF)
+	$(PNR) --hx8k --json build/$(NAME).json --pcf $(PCF) --asc build/$(NAME).asc
+
 
 build/$(NAME).bin: build/$(NAME).asc
 	icepack build/$(NAME).asc build/$(NAME).bin
@@ -110,7 +107,7 @@ build/$(NAME).ps: $(DSRC) build
 	$(SYNTH) -p "prep; show -stretch -prefix build/$(NAME) -format ps" $(DSRC)
 
 show: build/$(NAME).ps
-	gnome-open build/$(NAME).ps
+	xdg-open build/$(NAME).ps
 
 #
 

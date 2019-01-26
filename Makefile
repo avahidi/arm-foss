@@ -4,6 +4,14 @@ UART ?= /dev/ttyUSB1
 
 all: sw hw
 
+help:
+	@echo "Valid targets are:"
+	@echo "  For pre-synthesis   -  lint, sim0, wave0"
+	@echo "  For post-synthesis  -  synth, sim1, wave1"
+	@echo "  For FPGA flow       -  synth, par, time, program"
+	@echo "  For UART to FPGA    -  console"
+	@echo "  Administration      -  setup, clean, clean_all"
+
 # software
 .PHONY: sw
 sw: build
@@ -71,5 +79,5 @@ clean:
 	rm -rf build
 
 clean_all: clean
-	make -C setup clean
+	make -C external clean
 #	git submodule foreach make clean

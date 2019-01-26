@@ -4,9 +4,9 @@
 [submodule "external/icestorm"]
 	path = external/icestorm
 	url = https://github.com/cliffordwolf/icestorm.git
-[submodule "external/arachne-pnr"]
-	path = external/arachne-pnr
-	url = https://github.com/cseed/arachne-pnr.git
 [submodule "external/yosys"]
 	path = external/yosys
 	url = https://github.com/cliffordwolf/yosys.git
+[submodule "external/nextpnr"]
+	path = external/nextpnr
+	url = https://github.com/YosysHQ/nextpnr
