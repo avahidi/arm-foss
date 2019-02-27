@@ -26,7 +26,7 @@ Why?
 ----
 
 The development tools are often a major obstacle to anyone wanting to learn FPGA and ASIC design.
-Many are very very expansive and behind the reach of hobbyist
+Many are very very expansive and beyond the reach of hobbyist
 (and many companies for that matter). And while some companies provide free
 or cheap tools for selected devices, those come often with a number of serious
 issues (e.g. artificial limitations, huge installs, aggressive DRM, non-existing
@@ -158,7 +158,7 @@ CTRL
 ~~~~
 
 The CTRL is a dummy peripheral to simplify simulation.
-It provides the following register:
+It provides the following registers:
 
 * 0x000: r/o, reads 1 if this is a simulation
 * 0x004: w/o, (simulation only) write to stdout
@@ -169,7 +169,7 @@ UART
 ~~~~
 
 UART is a minimal serial interface with interrupt capabilities.
-It provides the following register:
+It provides the following registers:
 
 * 0x000: r/w, DATA register
 
@@ -193,7 +193,7 @@ GPIO
 ~~~~
 
 GPIO allows the CPU access to the 8 pins connected to Leds D2-D9.
-It provides the following register:
+It provides the following registers:
 
 * 0x000: r/w: DATA register. bits [7:0] are data bits
 * 0x004: r/w: DIR register. bits [7:0] are port direction (1 means output)
@@ -202,7 +202,7 @@ It provides the following register:
 Software
 ========
 
-The software for the ARM core is found in the sw folder.
+The software is found in the sw folder.
 In its current form all this code does is to toggle the LEDs at a speed you set from the console (press 0 to 9).
 
 This is used to demonstrate number of things:
@@ -292,7 +292,7 @@ The current tools shows you approximate design size and frequency::
 
 
 Hence we we are using about 70% of the cells and 50% of the memories and have a maximum frequency of about 20MHz.
-These are not particularly good numbers, mainly because the Cortex-M0 (unlike Cortex-M1) was not `designed for FPGA <http://dl.acm.org/citation.cfm?id=968291>`_.
+These are not particularly good numbers, mainly because the Cortex-M0 (unlike Cortex-M1) was not designed for FPGA `(here is a relevant paper on the subject) <http://dl.acm.org/citation.cfm?id=968291>`_.
 Unfortunately, we currently don't have the right tools to improve either of these (although the nextpnr project aims to address this)
 
 
