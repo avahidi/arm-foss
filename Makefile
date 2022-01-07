@@ -57,6 +57,7 @@ program: sw
 
 # misc
 setup:
+	git submodule update --init
 	make -C external setup
 
 lint:

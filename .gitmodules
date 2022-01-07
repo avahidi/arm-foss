@@ -1,6 +1,6 @@
 [submodule "external/bmlib"]
 	path = external/bmlib
-	url = https://bitbucket.org/vahidi/bmlib.git
+	url = https://github.com/avahidi/bmlib.git
 [submodule "external/icestorm"]
 	path = external/icestorm
 	url = https://github.com/cliffordwolf/icestorm.git

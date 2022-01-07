@@ -10,10 +10,8 @@ setup:
 		cmake clang-format qt5-default python3-dev libboost-all-dev
 
 
-	# 2. get the submodules & clean old stuff
-	git submodule update --init
+	# 2. build the external tools and dependencies
 	make clean
-
 
 	# 3. build bmlib, just to be sure
 	CROSS_COMPILE=arm-none-eabi- make -C bmlib

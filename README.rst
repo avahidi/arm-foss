@@ -1,11 +1,10 @@
 
+*NOTE: this project started in 2015 when most open source EDA tools were very new and experimental. While I still believe this is an excellent project for people learning hardware design and FPGA / ASIC, it probably needs an update.*
+
+
 The ARM FOSS experiment
 ========================
-
-
-This is an experiment to see if we can design, test and deploy an `ARM Cortex-M0 <https://en.wikipedia.org/wiki/ARM_Cortex-M#Cortex-M0>`_ SoC
-on a FPGA development board using only open source software:
-
+    
 * Verilog simulation: `iverilog <https://en.wikipedia.org/wiki/Icarus_Verilog>`_, `gtkwave <http://gtkwave.sourceforge.net/>`_
 * Verilog lint: `verilator <https://en.wikipedia.org/wiki/Verilator>`_
 * FPGA synthesis: `icestorm <https://github.com/cliffordwolf/icestorm>`_, `yosys <https://github.com/cliffordwolf/yosys.git>`_, `nextpnr <https://github.com/YosysHQ/nextpnr>`_
@@ -209,7 +208,7 @@ This is used to demonstrate number of things:
 
 * bare metal development using GCC
 * Cortex-M initialization without using any standard libraries or assembler
-* use of printf() from `bmlib <https://bitbucket.org/vahidi/bmlib>`_ , connected to the USB-UART
+* use of printf() from `bmlib <https://github.com/avahidi/bmlib>`_ , connected to the USB-UART
 * Use of NVIC for interrupt management
 
   * use of SysTick to generate periodic interrupts
