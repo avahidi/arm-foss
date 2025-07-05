@@ -25,12 +25,12 @@ Why?
 ----
 
 The development tools are often a major obstacle to anyone wanting to learn FPGA and ASIC design.
-Many are very very expansive and beyond the reach of hobbyist
+Many are very expensive and beyond the reach of hobbyists
 (and many companies for that matter). And while some companies provide free
-or cheap tools for selected devices, those come often with a number of serious
+or cheap tools for selected devices, those often come with a number of serious
 issues (e.g. artificial limitations, huge installs, aggressive DRM, non-existing
 support, very short licenses with no guarantees for future renewal and last but
-not least: software quality is sometimes jaw-dropping low).
+not least: software quality is sometimes jaw-droppingly low).
 
 
 But what if you could replace all this with a few quality open source tools
@@ -110,7 +110,7 @@ Hardware
 ========
 
 The SoC contains an AHB3-Lite bus connected to a Cortex-M0, a few peripherals (UART, GPIO, CTRL) and memories (ROM, RAM).
-The memory map look like this::
+The memory map looks like this::
 
 
     E000F000 +--------------+
@@ -143,7 +143,7 @@ The part at 0xA000_xxxx however is defined by us. The implementation of all this
 * hw/src/top.v (the bus address encoder)
 
 
-The interrupt map is as following:
+The interrupt map is as follows:
 
 * irq 0: uart interrupts
 * irq 1-15: not used
@@ -161,7 +161,7 @@ It provides the following registers:
 
 * 0x000: r/o, reads 1 if this is a simulation
 * 0x004: w/o, (simulation only) write to stdout
-* 0x008: w/o, (simulation only) write to kill simulation
+* 0x008: w/o, (simulation only) write to terminate simulation
 
 
 UART
@@ -172,8 +172,8 @@ It provides the following registers:
 
 * 0x000: r/w, DATA register
 
-  * read [7:0] to get received data. Read removes RX interrupt
-  * write [7:0] to send data (STATUS[2] must be 0))
+  * reading [7:0] gets received data. Reading removes RX interrupt
+  * write [7:0] to send data (STATUS[2] must be 0)
 * 0x004: r/w, CONTROL register
 
   * [0] r/w, interrupt on RX error
@@ -202,9 +202,9 @@ Software
 ========
 
 The software is found in the sw folder.
-In its current form all this code does is to toggle the LEDs at a speed you set from the console (press 0 to 9).
+In its current form, all this code does is to toggle the LEDs at a speed you set from the console (press 0 to 9).
 
-This is used to demonstrate number of things:
+This is used to demonstrate a number of things:
 
 * bare metal development using GCC
 * Cortex-M initialization without using any standard libraries or assembler
@@ -244,7 +244,7 @@ This will generate a number of files in sw/build :
 * sw0.bin - zero-padded version of sw.bin
 
 
-The top level make file will copy .bin and .hex files to build/ and renamed to rom.bin (and so on).
+The top level make file will copy .bin and .hex files to build/ and rename them to rom.bin (and so on).
 These files will be used to populate the SoC ROM during simulation and synthesis.
 
 To browse the generated code, run::
@@ -260,7 +260,7 @@ In hardware design performance generally means three things:
 * Frequency
 * Power usage
 
-The current tools shows you approximate design size and frequency::
+The current tools show you approximate design size and frequency::
 
     make synth
     ...
@@ -290,7 +290,7 @@ The current tools shows you approximate design size and frequency::
     Total path delay: 48.87 ns (20.46 MHz)
 
 
-Hence we we are using about 70% of the cells and 50% of the memories and have a maximum frequency of about 20MHz.
+Hence we are using about 70% of the cells and 50% of the memories and have a maximum frequency of about 20MHz.
 These are not particularly good numbers, mainly because the Cortex-M0 (unlike Cortex-M1) was not designed for FPGA `(here is a relevant paper on the subject) <http://dl.acm.org/citation.cfm?id=968291>`_.
 Unfortunately, we currently don't have the right tools to improve either of these (although the nextpnr project aims to address this)
 
